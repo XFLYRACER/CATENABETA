@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controllo Radioattivit&agrave</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightgray;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .input-small {
+            width: 100px;
+        }
+        .message {
+            display: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Controllo della Radioattivit&agrave Ambientale</h1>
+        <h2>Comando Regionale Vigili del Fuoco AOSTA</h2>
+        <form id="modulo">
+            <label>Operatore</label>
+            <input type="text" name="OPERATORE">
+            
+            <label>Luogo del Prelievo</label>
+            <input type="text" name="LUOGO">
+            
+            <label>Data Prelievo</label>
+            <input type="date" name="DATA" style="width: 200px;">
+            
+            <label>Ora Prelievo</label>
+            <input type="time" name="ORA" style="width: 200px;">
+            
+            <label>Volume Aspirato (Mc)</label>
+            <input type="number" name="VOLUME" value="4" style="width: 100px;">
+            
+            <label>Temperatura (�C)</label>
+            <input type="number" name="TEMPERATURA" style="width: 100px;">
+            
+            <label>Pressione (hPa)</label>
+            <input type="number" name="PRESSIONE" style="width: 100px;">
+            
+            <label>Umidit&agrave (%)</label>
+            <input type="number" name="UMIDITA" style="width: 100px;">
+            
+            <label>Vento</label>
+            <select name="VENTO">
+                <option value="ASSENTE">Assente</option>
+                <option value="MODERATO">Moderato</option>
+                <option value="FORTE">Forte</option>
+            </select>
+            
+            <label>Condizioni Meteo</label>
+            <select name="TEMPO">
+                <option value="SERENO">Sereno</option>
+                <option value="NUVOLOSO">Nuvoloso</option>
+                <option value="PIOGGIA">Pioggia</option>
+            </select>
+            
+            <label>Manometro Pompa (cm/hg)</label>
+            <input type="number" name="MANOMETRO" style="width: 100px;">
+            
+            <label>Misura Pozzetto a Vuoto</label>
+            <label>Media delle misure</label>
+            <input type="number" id="VUOTOMEDIA" name="VUOTOMEDIA"  class="input-small" readonly style="background-color: yellow">
+           
+
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="VUOTO1" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO2" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO3" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO4" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO5" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+            </div>
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="VUOTO6" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO7" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO8" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO9" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number" class="input-small" name="VUOTO10" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+            </div>
+            
+
+            <label>Misura dopo l'aspirazione 1a lettura filtro Bianco</label>
+            <label>Media delle misure</label>
+            <input type="number" id="BIANCOMEDIA1" name="BIANCOMEDIA1" value="2" class="input-small" readonly style="background-color: yellow">
+
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="1BIANCO1" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO2" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO3" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO4" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO5" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+            </div>
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="1BIANCO6" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO7" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO8" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO9" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number" class="input-small" name="1BIANCO10" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+            </div>
+
+            <label>Misura 2h dopo l'aspirazione 2a lettura filtro Bianco</label>
+            <label>Media delle misure</label>
+            <input type="number" id="BIANCOMEDIA2" name="BIANCOMEDIA2" value="3" class="input-small" readonly style="background-color: yellow">
+
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="2BIANCO1" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO2" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO3" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO4" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO5" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+            </div>
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="2BIANCO6" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO7" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO8" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO9" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number" class="input-small" name="2BIANCO10" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+            </div>
+
+            <label>Misura filtro Nero</label>
+            <label>Media delle misure</label>
+            <input type="number" id="filtronero" name="filtronero" value="4" class="input-small" readonly style="background-color: yellow">
+
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="FILTRONERO1" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO2" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO3" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO4" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO5" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+            </div>
+            <div style="display: flex; flex-wrap: nowrap;">
+                <input type="number" class="input-small" name="FILTRONERO6" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO7" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO8" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO9" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number" class="input-small" name="FILTRONERO10" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+            </div>
+
+
+
+            <p><strong>NB.</strong> LA LETTURA DEL FILTRO NERO VA EFFETTUATA SOLAMENTE PER AVERE DEI VALORI DI RIFERIMENTO OPPURE NEL CASO CHE I VALORI DEL FILTRO BIANCO IN SECONDA LETTURA NON SI SIANO ALMENO DIMEZZATI.
+                <br><strong>DA FARE IN OGNI CASO IL PRIMO VENERDÌ DEL MESE.</strong></p>
+
+
+                <p><strong>Created by BELLEY Ver 1.25.</strong> .</p>
+
+
+            <button class="btn" type="submit">Invia Dati</button>
+        </form>
+
+        <div id="successo" class="message success">Dati inviati con successo!</div>
+        <div id="errore" class="message error">Si &egrave verificato un errore durante l'invio dei dati.</div>
+    </div>
+
+    <script>
+        function calcolaMedia(prefix, outputId) {
+            let valori = document.querySelectorAll(`[name^="${prefix}"]`);
+            let somma = 0;
+            let count = 0;
+
+            valori.forEach(input => {
+                let valore = parseFloat(input.value);
+                if (!isNaN(valore)) {
+                    somma += valore;
+                    count++;
+                }
+            });
+
+            let media = count > 0 ? (somma / count).toFixed(2) : "";
+            document.getElementById(outputId).value = media;
+        }
+
+        
+
+
+    document.getElementById("modulo").addEventListener("submit", function(e) {
+    e.preventDefault(); // Impedisce l'invio del modulo
+
+    let formData = new FormData(this); // Raccoglie tutti i dati del modulo (name)
+
+
+    for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]); // Stampa tutti i campi e i valori
+    }
+    fetch("https://script.google.com/macros/s/AKfycbyCaBO3K9WcYjQtrYf_HxYHFAe9GMzc-dx-vxRZfb_r8-Q9400NDzKietU97Xoht455/exec", {
+        method: "POST",
+        body: formData,
+        mode: 'no-cors' // Usa la modalit� no-cors
+    })
+    .then(() => {
+       // document.getElementById("modulo").reset(); // Resetta il modulo
+        document.getElementById("successo").style.display = "block"; // Mostra il messaggio di conferma
+        setTimeout(() => {
+            document.getElementById("successo").style.display = "none"; // Nasconde il messaggio dopo 3 secondi
+        }, 3000);
+    })
+    .catch(error => {
+        console.error("Errore:", error);
+        document.getElementById("errore").style.display = "block"; // Mostra il messaggio di errore
+        setTimeout(() => {
+            document.getElementById("errore").style.display = "none"; // Nasconde il messaggio dopo 3 secondi
+        }, 3000);
+    });
+});
+    </script>
+
+</body>
+</html>
