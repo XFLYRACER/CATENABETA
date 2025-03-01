@@ -234,33 +234,31 @@
     document.getElementById("modulo").addEventListener("submit", function(e) {
     e.preventDefault(); // Impedisce l'invio del modulo
 
-    let formData = new FormData(this); // Raccoglie tutti i dati del modulo
-    let object = {};
-    formData.forEach((value, key) => { object[key] = value });
-    let json = JSON.stringify(object);
+    let formData = new FormData(this); // Raccoglie tutti i dati del modulo (name)
+
+    for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]); // Stampa tutti i campi e i valori
+    }
 
     fetch("https://script.google.com/macros/s/AKfycbzdJN_PXISjYFKQHbTpC0kc_qaP7rC5--U8uA5P1E-83jqVYaPlAnQ_FYe9G8QBfzEF/exec", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: json
+        body: formData // Rimuovi l'header manuale
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById("successo").style.display = "block"; 
-            setTimeout(() => document.getElementById("successo").style.display = "none", 3000);
-        } else {
-            throw new Error(data.message);
-        }
+    .then(() => {
+        document.getElementById("successo").style.display = "block"; // Mostra il messaggio di conferma
+        setTimeout(() => {
+            document.getElementById("successo").style.display = "none"; // Nasconde il messaggio dopo 3 secondi
+        }, 3000);
     })
     .catch(error => {
         console.error("Errore:", error);
-        document.getElementById("errore").style.display = "block"; 
-        setTimeout(() => document.getElementById("errore").style.display = "none", 3000);
+        document.getElementById("errore").style.display = "block"; // Mostra il messaggio di errore
+        setTimeout(() => {
+            document.getElementById("errore").style.display = "none"; // Nasconde il messaggio dopo 3 secondi
+        }, 3000);
     });
 });
+
     </script>
 
 </body>
