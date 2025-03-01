@@ -88,16 +88,16 @@
             <input type="time" name="ORA" style="width: 200px;">
             
             <label>Volume Aspirato (Mc)</label>
-            <input type="number" name="VOLUME" value="4" style="width: 100px;">
+            <input type="number"  step="0.001" name="VOLUME" value="4" style="width: 100px;">
             
-            <label>Temperatura (�C)</label>
-            <input type="number" name="TEMPERATURA" style="width: 100px;">
+            <label>Temperatura (ï¿½C)</label>
+            <input type="number"  step="0.001" name="TEMPERATURA" style="width: 100px;">
             
             <label>Pressione (hPa)</label>
-            <input type="number" name="PRESSIONE" style="width: 100px;">
+            <input type="number"  step="0.001" name="PRESSIONE" style="width: 100px;">
             
             <label>Umidit&agrave (%)</label>
-            <input type="number" name="UMIDITA" style="width: 100px;">
+            <input type="number"  step="0.001" name="UMIDITA" style="width: 100px;">
             
             <label>Vento</label>
             <select name="VENTO">
@@ -114,90 +114,90 @@
             </select>
             
             <label>Manometro Pompa (cm/hg)</label>
-            <input type="number" name="MANOMETRO" style="width: 100px;">
+            <input type="number"  step="0.001" name="MANOMETRO" style="width: 100px;">
             
             <label>Misura Pozzetto a Vuoto</label>
             <label>Media delle misure</label>
-            <input type="number" id="VUOTOMEDIA" name="VUOTOMEDIA"  class="input-small" readonly style="background-color: yellow">
+            <input type="number"  step="0,001" id="MEDIAVUOTO" name="MEDIAVUOTO"   value="1" class="input-small" readonly style="background-color: yellow">
            
 
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="VUOTO1" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO2" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO3" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO4" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO5" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO1" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO2" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO3" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO4" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO5" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
             </div>
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="VUOTO6" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO7" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO8" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO9" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
-                <input type="number" class="input-small" name="VUOTO10" oninput="calcolaMedia('VUOTO', 'VUOTOMEDIA')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO6" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO7" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO8" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO9" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
+                <input type="number"  step="0.001" class="input-small" name="VUOTO10" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
             </div>
             
 
             <label>Misura dopo l'aspirazione 1a lettura filtro Bianco</label>
             <label>Media delle misure</label>
-            <input type="number" id="BIANCOMEDIA1" name="BIANCOMEDIA1" value="2" class="input-small" readonly style="background-color: yellow">
+            <input type="number"  step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1" value="2" class="input-small" readonly style="background-color: yellow">
 
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="1BIANCO1" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO2" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO3" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO4" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO5" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO1" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO2" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO3" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO4" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO5" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
             </div>
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="1BIANCO6" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO7" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO8" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO9" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
-                <input type="number" class="input-small" name="1BIANCO10" oninput="calcolaMedia('1BIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO6" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO7" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO8" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO9" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
+                <input type="number"  step="0.001" class="input-small" name="UNOBIANCO10" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
             </div>
 
             <label>Misura 2h dopo l'aspirazione 2a lettura filtro Bianco</label>
             <label>Media delle misure</label>
-            <input type="number" id="BIANCOMEDIA2" name="BIANCOMEDIA2" value="3" class="input-small" readonly style="background-color: yellow">
+            <input type="number"  step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2" value="3" class="input-small" readonly style="background-color: yellow">
 
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="2BIANCO1" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO2" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO3" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO4" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO5" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO1" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO2" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO3" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO4" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO5" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
             </div>
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="2BIANCO6" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO7" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO8" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO9" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
-                <input type="number" class="input-small" name="2BIANCO10" oninput="calcolaMedia('2BIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO6" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO7" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO8" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO9" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
+                <input type="number"  step="0.001" class="input-small" name="DUEBIANCO10" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
             </div>
 
             <label>Misura filtro Nero</label>
             <label>Media delle misure</label>
-            <input type="number" id="filtronero" name="filtronero" value="4" class="input-small" readonly style="background-color: yellow">
+            <input type="number"  step="0.001" id="NERO" name="NERO" value="4" class="input-small" readonly style="background-color: yellow">
 
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="FILTRONERO1" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO2" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO3" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO4" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO5" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO1" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO2" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO3" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO4" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO5" oninput="calcolaMedia('FILTRONERO', 'NERO')">
             </div>
             <div style="display: flex; flex-wrap: nowrap;">
-                <input type="number" class="input-small" name="FILTRONERO6" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO7" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO8" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO9" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
-                <input type="number" class="input-small" name="FILTRONERO10" oninput="calcolaMedia('FILTRONERO', 'filtronero')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO6" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO7" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO8" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO9" oninput="calcolaMedia('FILTRONERO', 'NERO')">
+                <input type="number"  step="0.001" class="input-small" name="FILTRONERO10" oninput="calcolaMedia('FILTRONERO', 'NERO')">
             </div>
 
 
 
             <p><strong>NB.</strong> LA LETTURA DEL FILTRO NERO VA EFFETTUATA SOLAMENTE PER AVERE DEI VALORI DI RIFERIMENTO OPPURE NEL CASO CHE I VALORI DEL FILTRO BIANCO IN SECONDA LETTURA NON SI SIANO ALMENO DIMEZZATI.
-                <br><strong>DA FARE IN OGNI CASO IL PRIMO VENERDÌ DEL MESE.</strong></p>
+                <br><strong>DA FARE IN OGNI CASO IL PRIMO VENERDÃŒ DEL MESE.</strong></p>
 
 
                 <p><strong>Created by BELLEY Ver 1.25.</strong> .</p>
@@ -224,7 +224,7 @@
                 }
             });
 
-            let media = count > 0 ? (somma / count).toFixed(2) : "";
+            let media = count > 0 ? (somma / count).toFixed(3) : "0.000";
             document.getElementById(outputId).value = media;
         }
 
@@ -240,10 +240,10 @@
     for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]); // Stampa tutti i campi e i valori
     }
-    fetch("https://script.google.com/macros/s/AKfycbyCaBO3K9WcYjQtrYf_HxYHFAe9GMzc-dx-vxRZfb_r8-Q9400NDzKietU97Xoht455/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwqo3cpuwCU92wH2HKZ8oxhS0zsk1MHeUzPO8GHuYu8eU9uuo8NsjVC3NNVOw9R-_wU/exec", {
         method: "POST",
         body: formData,
-        mode: 'no-cors' // Usa la modalit� no-cors
+        mode: 'no-cors' // Usa la modalitï¿½ no-cors
     })
     .then(() => {
        // document.getElementById("modulo").reset(); // Resetta il modulo
