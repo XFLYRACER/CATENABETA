@@ -243,6 +243,9 @@
     fetch("https://script.google.com/macros/s/AKfycbzdJN_PXISjYFKQHbTpC0kc_qaP7rC5--U8uA5P1E-83jqVYaPlAnQ_FYe9G8QBfzEF/exec", {
         method: "POST",
         body: formData,
+        headers: {
+        "Content-Type": "application/json"
+    }
         //mode: 'no-cors' // Usa la modalitï¿½ no-cors
     })
     .then(() => {
