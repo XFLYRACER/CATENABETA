@@ -231,18 +231,19 @@
         
 
 
-    document.getElementById("modulo").addEventListener("submit", function(e) {
+   document.getElementById("modulo").addEventListener("submit", function(e) {
     e.preventDefault(); // Impedisce l'invio del modulo
 
-    let formData = new FormData(this); // Raccoglie tutti i dati del modulo (name)
+    let formData = new FormData(this); // Raccoglie tutti i dati del modulo
 
     for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]); // Stampa tutti i campi e i valori
+        console.log(pair[0], pair[1]); // Debug: stampa i dati raccolti
     }
 
     fetch("https://script.google.com/macros/s/AKfycbzdJN_PXISjYFKQHbTpC0kc_qaP7rC5--U8uA5P1E-83jqVYaPlAnQ_FYe9G8QBfzEF/exec", {
         method: "POST",
-        body: formData // Rimuovi l'header manuale
+        body: formData, // NON serve settare l'header Content-Type con FormData
+        mode: "no-cors" // Utile se il server non supporta CORS
     })
     .then(() => {
         document.getElementById("successo").style.display = "block"; // Mostra il messaggio di conferma
@@ -258,6 +259,7 @@
         }, 3000);
     });
 });
+
 
     </script>
 
