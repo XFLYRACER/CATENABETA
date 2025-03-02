@@ -240,7 +240,7 @@ document.getElementById("modulo").addEventListener("submit", function(event) {
     formData.forEach((value, key) => object[key] = value);
     let json = JSON.stringify(object);
 
-    fetch("URL_DEL_TUO_SCRIPT_GOOGLE", {
+    fetch("https://script.google.com/macros/s/AKfycby4I-U4BeHBSgLqUWGBNjS9ul1gRs-8R_373sMve3eVTQIa1K9LtNPAoqUUxZ_N0ZGs/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: json
