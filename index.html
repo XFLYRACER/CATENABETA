@@ -237,7 +237,7 @@ document.getElementById("modulo").addEventListener("submit", function(event) {
     formData.forEach((value, key) => object[key] = value);
     let json = JSON.stringify(object);
 
-    fetch("https://script.google.com/macros/s/AKfycby4I-U4BeHBSgLqUWGBNjS9ul1gRs-8R_373sMve3eVTQIa1K9LtNPAoqUUxZ_N0ZGs/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbzvSVr10Zh9uhFpeJs50AqpMcNy66WsuACR7K64oT6F6VoAzSVuRmHJvky8Pc1IDJXN/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: json
