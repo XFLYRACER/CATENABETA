@@ -218,35 +218,36 @@
     
         document.getElementById("modulo").addEventListener("submit", function(event) {
             event.preventDefault(); // Evita il ricaricamento della pagina
-    
-            // URL dello script Google Apps Script (da sostituire con il tuo)
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxiMTt9ui8L1KvkHXPaJL5QA6X9zFSaoX2zxwFPvyZbJbBZlJiz-Tg94bD2BYDF7i_I/exec";
-    
-            // Prende tutti i dati del form
+
+            const scriptURL = "https://script.google.com/macros/s/IL_TUO_URL/exec"; // Sostituisci con il tuo URL
+
             let formData = new FormData(this);
-    
-            // Converti i dati in formato JSON
             let jsonObject = {};
             formData.forEach((value, key) => {
                 jsonObject[key] = value;
             });
-    
-            // Invia i dati al foglio Google
+
             fetch(scriptURL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonObject)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Errore nella risposta dal server.");
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.result === "success") {
+                if (data.risultato === "Successo") {
                     document.getElementById("successo").style.display = "block";
                     document.getElementById("errore").style.display = "none";
                 } else {
-                    throw new Error("Errore nell'invio dei dati.");
+                    throw new Error("Errore nel salvataggio.");
                 }
             })
             .catch(error => {
+                console.error("Errore:", error);
                 document.getElementById("errore").style.display = "block";
                 document.getElementById("successo").style.display = "none";
             });
