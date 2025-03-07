@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controllo Radioattivit&agrave</title>
+    <title>Controllo Radioattivit&agrave;</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
         body {
@@ -233,14 +233,23 @@
   fetch("https://script.google.com/macros/s/AKfycbx67KLwozoOuUGhgwRUKlfMXTmU-apeGBt0ygWWCp0XjhzMk_oWtGGB-nst8yYL4dJ8/exec", {
     method: "POST",
     mode: "cors",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData)
-  })
-  .then(response => response.json())
-  .then(data => console.log("Success:", data))
-  .catch(error => console.error("Errore:", error));
+})
+.then(response => response.json())
+.then(data => {
+    if (data.result === "success") {
+        document.getElementById("successo").style.display = "block";
+        document.getElementById("errore").style.display = "none";
+    } else {
+        document.getElementById("errore").style.display = "block";
+        document.getElementById("successo").style.display = "none";
+    }
+})
+.catch(error => {
+    console.error("Errore:", error);
+    document.getElementById("errore").style.display = "block";
+    document.getElementById("successo").style.display = "none";
 });
 
     </script>
