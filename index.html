@@ -216,42 +216,33 @@
             document.getElementById(outputId).value = media;
         }
     
-        document.getElementById("modulo").addEventListener("submit", function(event) {
-            event.preventDefault(); // Evita il ricaricamento della pagina
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbyJyjiHuOC0D08bDQQglXghxe5jL_KCo6Ijj3-MJJyGhZOJ3yTlQtyButcZAt7vy1rI/exec"; // Sostituisci con il tuo URL
+  var formData = {
+    OPERATORE: document.getElementById("operatore").value,
+    LUOGO: document.getElementById("luogo").value,
+    DATA: document.getElementById("data").value,
+    ORA: document.getElementById("ora").value,
+    VOLUME: document.getElementById("volume").value,
+    TEMPERATURA: document.getElementById("temperatura").value,
+    PRESSIONE: document.getElementById("pressione").value,
+    UMIDITA: document.getElementById("umidita").value
+  };
 
-            let formData = new FormData(this);
-            let jsonObject = {};
-            formData.forEach((value, key) => {
-                jsonObject[key] = value;
-            });
+  fetch("https://script.google.com/macros/s/AKfycbyJyjiHuOC0D08bDQQglXghxe5jL_KCo6Ijj3-MJJyGhZOJ3yTlQtyButcZAt7vy1rI/exec", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => console.log("Success:", data))
+  .catch(error => console.error("Errore:", error));
+});
 
-            fetch(scriptURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(jsonObject)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Errore nella risposta dal server.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.risultato === "Successo") {
-                    document.getElementById("successo").style.display = "block";
-                    document.getElementById("errore").style.display = "none";
-                } else {
-                    throw new Error("Errore nel salvataggio.");
-                }
-            })
-            .catch(error => {
-                console.error("Errore:", error);
-                document.getElementById("errore").style.display = "block";
-                document.getElementById("successo").style.display = "none";
-            });
-        });
     </script>
     
 </body>
