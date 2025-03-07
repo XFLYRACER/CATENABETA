@@ -220,14 +220,14 @@
   event.preventDefault();
 
   var formData = {
-    OPERATORE: document.getElementById("operatore").value,
-    LUOGO: document.getElementById("luogo").value,
-    DATA: document.getElementById("data").value,
-    ORA: document.getElementById("ora").value,
-    VOLUME: document.getElementById("volume").value,
-    TEMPERATURA: document.getElementById("temperatura").value,
-    PRESSIONE: document.getElementById("pressione").value,
-    UMIDITA: document.getElementById("umidita").value
+    OPERATORE: document.getElementById("OPERATORE").value,
+    LUOGO: document.getElementById("LUOGO").value,
+    DATA: document.getElementById("DATA").value,
+    ORA: document.getElementById("ORA").value,
+   // VOLUME: document.getElementById("volume").value,
+    //TEMPERATURA: document.getElementById("temperatura").value,
+    //PRESSIONE: document.getElementById("pressione").value,
+    //UMIDITA: document.getElementById("umidita").value
   };
 
   fetch("https://script.google.com/macros/s/AKfycbx67KLwozoOuUGhgwRUKlfMXTmU-apeGBt0ygWWCp0XjhzMk_oWtGGB-nst8yYL4dJ8/exec", {
