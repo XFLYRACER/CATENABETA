@@ -308,7 +308,53 @@
             };
 
             // Invia una richiesta POST al server con i dati del modulo
-            fetch("https://script.google.com/macros/s/AKfycbzHbiTM0xc6A8QI9agqTP06jOQMnvlyVaQfIYyhSvjXwaxb1jwuAS3zwA4IgicCDNIH/exec", {
+            fetch("function doOptions(e) {
+  // Risponde alla richiesta preflight con gli header CORS
+  return addCorsHeaders(ContentService.createTextOutput(""));
+}
+
+
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.openById("1S6P0rMR6iOHFEXK-WU1S_h6FRsXK1izriBIJrB64UtA").getSheetByName("Misure");
+    var dati = JSON.parse(e.postData.contents);
+    
+    // Log dei dati ricevuti
+    Logger.log("Dati ricevuti: " + JSON.stringify(dati));
+    
+    sheet.appendRow([dati.OPERATORE, dati.LUOGO, dati.DATA, dati.ORA, dati.VOLUME, dati.TEMPERATURA, dati.PRESSIONE, dati.UMIDITA]);
+    
+    var output = ContentService.createTextOutput(JSON.stringify({ "risultato": "Successo" }))
+      .setMimeType(ContentService.MimeType.JSON);
+    
+    return addCorsHeaders(output);
+  } catch (errore) {
+    // Log dell'errore
+    Logger.log("Errore: " + errore.toString());
+    
+    var output = ContentService.createTextOutput(JSON.stringify({ "errore": errore.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+    
+    return addCorsHeaders(output);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput("CORS abilitato")
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader("Access-Control-Allow-Origin", "*")
+    .setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
+function addCorsHeaders(output) {
+  return output.setMimeType(ContentService.MimeType.JSON)
+    .setHeader("Access-Control-Allow-Origin", "*")
+    .setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+", {
                 method: "POST",
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
