@@ -84,7 +84,7 @@
 
 <body>
     <div class="container">
-        <h1>Controllo della Radioattivit&agrave Ambientale</h1>
+        <h1>Controllo della Radioattivit&agrave; Ambientale</h1>
         <h2>Comando Regionale Vigili del Fuoco AOSTA</h2>
         <form id="modulo">
             <label for="OPERATORE">Operatore</label>
@@ -108,7 +108,7 @@
             <label for="PRESSIONE">Pressione (hPa)</label>
             <input type="number" step="0.001" id="PRESSIONE" name="PRESSIONE" style="width: 100px;">
 
-            <label for="UMIDITA">Umidit&agrave (%)</label>
+            <label for="UMIDITA">Umidit&agrave; (%)</label>
             <input type="number" step="0.001" id="UMIDITA" name="UMIDITA" style="width: 100px;">
 
             <label for="VENTO">Vento</label>
@@ -130,7 +130,7 @@
 
             <label>Misura Pozzetto a Vuoto</label>
             <label for="MEDIAVUOTO">Media delle misure</label>
-            <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO" value="1" class="input-small" readonly
+            <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO" value="1" class="input-small" 
                 style="background-color: yellow">
 
             <div style="display: flex; flex-wrap: nowrap;">
@@ -161,7 +161,7 @@
             <label>Misura dopo l'aspirazione 1a lettura filtro Bianco</label>
             <label for="BIANCOMEDIA1">Media delle misure</label>
             <input type="number" step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1" value="2" class="input-small"
-                readonly style="background-color: yellow">
+                 style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="UNOBIANCO1"
                     oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
@@ -190,7 +190,7 @@
             <label>Misura 2h dopo l'aspirazione 2a lettura filtro Bianco</label>
             <label for="BIANCOMEDIA2">Media delle misure</label>
             <input type="number" step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2" value="3" class="input-small"
-                readonly style="background-color: yellow">
+                 style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="DUEBIANCO1"
                     oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
@@ -218,7 +218,7 @@
 
             <label>Misura filtro Nero</label>
             <label for="NERO">Media delle misure</label>
-            <input type="number" step="0.001" id="NERO" name="NERO" value="4" class="input-small" readonly
+            <input type="number" step="0.001" id="NERO" name="NERO" value="4" class="input-small" 
                 style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="FILTRONERO1"
