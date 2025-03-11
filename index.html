@@ -64,6 +64,7 @@
         </table>
     </div>
 
+    <div class="chart-container">
     <canvas id="myChart"></canvas>
 </div>
 
@@ -71,9 +72,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    let myChart = null;
-    const sheetId = '1S6P0rMR6iOHFEXK-WU1S_h6FRsXK1izriBIJrB64UtA';
-    const apiKey = 'AIzaSyDwaK-e-eKYm1jprDq8EzEunjUa0PmWKtE'; // ⚠️ MEGLIO USARE UN PROXY!
+     let myChart = null;
 
     async function loadSheetData() {
         try {
@@ -90,13 +89,9 @@
             const values = [];
 
             last10Rows.forEach(row => {
-                if (row[0] !== undefined && row[1] !== undefined) {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td><td>${row[6]}</td><td>${row[7]}</td><td>${row[8]}</td><td>${row[9]}</td><td>${row[10]}</td><td>${row[11]}</td><td>${row[12]}</td><td>${row[13]}</td>`;
-                    tableBody.appendChild(tr);
-
+                if (row.length >= 6 && !isNaN(row[5])) { // Controlla che il valore sia numerico
                     labels.push(row[1]);  
-                    values.push(parseFloat(row[5]) || 0);
+                    values.push(parseFloat(row[5]));
                 }
             });
 
@@ -118,29 +113,28 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Dati selezionati',
+                    label: 'FILTRO BIANCO 1a LETTURA',
                     data: dataForChart,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
                     fill: true,
+                    tension: 0.3, 
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'DATA'
-                        }
+                    x: { 
+                        title: { display: true, text: 'DATA' },
+                        ticks: { autoSkip: true, maxTicksLimit: 5 }
                     },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'FILTRO BIANCO 1a LETTURA'
-                        }
+                    y: { 
+                        title: { display: true, text: 'FILTRO BIANCO 1a LETTURA' },
+                        beginAtZero: true
                     }
                 }
             }
