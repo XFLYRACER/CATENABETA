@@ -80,6 +80,32 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+
+
+button {
+            background-color: #4CAF50; /* Colore di sfondo (verde) */
+            color: white; /* Colore del testo */
+            font-size: 16px; /* Dimensione del testo */
+            padding: 15px 32px; /* Distanza interna (verticale e orizzontale) */
+            border: none; /* Nessun bordo */
+            border-radius: 8px; /* Angoli arrotondati */
+            cursor: pointer; /* Cambia il cursore al passaggio sopra */
+            transition: background-color 0.3s; /* Transizione per l'effetto hover */
+        }
+
+        /* Stili per il bottone quando ci si passa sopra */
+        button:hover {
+            background-color: #45a049; /* Colore più scuro al passaggio del mouse */
+        }
+
+        /* Posizionamento del bottone al centro della pagina */
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Occupa tutta l'altezza della finestra */
+        }
+
     </style>
 </head>
 
@@ -94,7 +120,7 @@
 
         <h1>Controllo della Radioattivit&agrave; Ambientale</h1>
 	<h2>Inserimento dati nuova lettura</h2>
-        
+        <button onclick="window.location.href='index.html';">TORNA ALLA HOME</button>
         
 	<form id="modulo">
             <label for="OPERATORE">Operatore</label>
@@ -140,7 +166,7 @@
 
             <label>Misura Pozzetto a Vuoto</label>
             <label for="MEDIAVUOTO">Media delle misure</label>
-            <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO" value="1" class="input-small" 
+            <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO"  class="input-small" 
                 style="background-color: yellow">
 
             <div style="display: flex; flex-wrap: nowrap;">
@@ -170,7 +196,7 @@
 
             <label>Misura dopo l'aspirazione 1a lettura filtro Bianco</label>
             <label for="BIANCOMEDIA1">Media delle misure</label>
-            <input type="number" step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1" value="2" class="input-small"
+            <input type="number" step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1"  class="input-small"
                  style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="UNOBIANCO1"
@@ -199,7 +225,7 @@
 
             <label>Misura 2h dopo l'aspirazione 2a lettura filtro Bianco</label>
             <label for="BIANCOMEDIA2">Media delle misure</label>
-            <input type="number" step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2" value="3" class="input-small"
+            <input type="number" step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2"  class="input-small"
                  style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="DUEBIANCO1"
@@ -228,7 +254,7 @@
 
             <label>Misura filtro Nero</label>
             <label for="NERO">Media delle misure</label>
-            <input type="number" step="0.001" id="NERO" name="NERO" value="4" class="input-small" 
+            <input type="number" step="0.001" id="NERO" name="NERO"  class="input-small" 
                 style="background-color: yellow">
             <div style="display: flex; flex-wrap: nowrap;">
                 <input type="number" step="0.001" class="input-small" name="FILTRONERO1"
