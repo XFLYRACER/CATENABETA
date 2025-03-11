@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controllo Radioattivit&agrave;</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightgray;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 1300px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .btn {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        button {
+            background-color: #4CAF50; /* Colore di sfondo (verde) */
+            color: white; /* Colore del testo */
+            font-size: 16px; /* Dimensione del testo */
+            padding: 15px 32px; /* Distanza interna (verticale e orizzontale) */
+            border: none; /* Nessun bordo */
+            border-radius: 8px; /* Angoli arrotondati */
+            cursor: pointer; /* Cambia il cursore al passaggio sopra */
+            transition: background-color 0.3s; /* Transizione per l'effetto hover */
+        }
+
+        /* Stili per il bottone quando ci si passa sopra */
+        button:hover {
+            background-color: #45a049; /* Colore più scuro al passaggio del mouse */
+        }
+
+        /* Posizionamento del bottone al centro della pagina */
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Occupa tutta l'altezza della finestra */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        canvas {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="https://github.com/XFLYRACER/CATENABETA/blob/main/252px-Stemma_vvf_vda.jpg?raw=true" width="100">
+    <h1>Controllo della Radioattivit&agrave; Ambientale</h1>
+    <h2>Comando Regionale Vigili del Fuoco AOSTA</h2>
+
+    <button onclick="window.location.href='https://xflyracer.github.io/CATENABETA/';">INSERISCI NUOVI DATI</button>
+
+    <table id="data-table" border="1" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr>
+                <th>OPERATORE</th>
+                <th>DATA</th>
+                <th>LUOGO</th>
+                <th>ORA</th>
+                <th>VUOTO</th>
+                <th>BIANCO 1</th>
+                <th>BIANCO 2</th>
+                <th>NERO</th>
+                <th>VOLUME</th>
+                <th>TEMPERATURA</th>
+                <th>PRESSIONE</th>
+                <th>UMIDITA</th>
+                <th>VENTO</th>
+                <th>METEO</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    let myChart = null; // Variabile per il grafico
+    const sheetId = '1S6P0rMR6iOHFEXK-WU1S_h6FRsXK1izriBIJrB64UtA';
+    const apiKey = 'AIzaSyDwaK-e-eKYm1jprDq8EzEunjUa0PmWKtE'; // ⚠️ MEGLIO USARE UN PROXY!
+
+   async function loadSheetData() {
+        try {
+            // Modifica per prendere solo le ultime 10 righe, sostituendo B2:O20 con un intervallo più ampio
+            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/B2:O?key=${apiKey}`);
+            if (!response.ok) throw new Error("Errore nel recupero dei dati");
+
+            const data = await response.json();
+            const rows = data.values || [];
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = "";
+
+            // Prendi solo le ultime 10 righe
+            const last10Rows = rows.slice(-10);
+
+            const labels = [];
+            const values = [];
+
+            last10Rows.forEach(row => {
+                if (row[0] !== undefined && row[1] !== undefined) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td><td>${row[6]}</td><td>${row[7]}</td><td>${row[8]}</td><td>${row[9]}</td><td>${row[10]}</td><td>${row[11]}</td><td>${row[12]}</td><td>${row[13]}</td>`;
+                    tableBody.appendChild(tr);
+
+                    labels.push(row[1]);  // Utilizza la prima colonna (data o luogo) come etichetta
+                    values.push(parseFloat(row[5]) || 0);  // Usa la colonna "TEMPERATURA" per i dati del grafico
+                }
+            });
+
+            // Chiamata a createChart per creare il grafico con i dati
+            createChart(labels, values);
+        } catch (error) {
+            console.error("Errore nel caricamento dei dati:", error);
+        }
+    }
+
+    function createChart(labels, dataForChart) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Distrugge il vecchio grafico se esiste
+        if (myChart !== null) {
+            myChart.destroy();
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'line', // Cambiato da 'bar' a 'line' per un grafico a linee
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Dati selezionati',
+                    data: dataForChart,
+                    borderColor: 'rgba(75, 192, 192, 1)', // Colore della linea
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Colore di sfondo sotto la linea
+                    borderWidth: 2, // Spessore della linea
+                    fill: true, // Riempi l'area sotto la linea
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'DATA' // Titolo dell'asse X
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'BIANCO' // Titolo dell'asse Y
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Carica i dati all'avvio della pagina
+    loadSheetData();
+</script>
+
+</body>
+</html>
