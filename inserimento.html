@@ -133,28 +133,28 @@
   
   <form id="modulo">
     <label for="OPERATORE">Operatore</label>
-    <input type="text" id="OPERATORE" name="OPERATORE"  >
+    <input type="text" id="OPERATORE" name="OPERATORE" required >
 
     <label for="LUOGO">Luogo del Prelievo</label>
-    <input type="text" id="LUOGO" name="LUOGO"  >
+    <input type="text" id="LUOGO" name="LUOGO"  required>
 
     <label for="DATA">Data Prelievo</label>
-    <input type="date" id="DATA" name="DATA"  >
+    <input type="date" id="DATA" name="DATA"  required>
 
     <label for="ORA">Ora Prelievo</label>
-    <input type="time" id="ORA" name="ORA"  >
+    <input type="time" id="ORA" name="ORA"  required>
 
     <label for="VOLUME">Volume Aspirato (Mc)</label>
     <input type="number" step="0.001" id="VOLUME" name="VOLUME" value="4" class="input-small">
 
     <label for="TEMPERATURA">Temperatura (°C)</label>
-    <input type="number" step="0.001" id="TEMPERATURA" name="TEMPERATURA" class="input-small"  >
+    <input type="number" step="0.001" id="TEMPERATURA" name="TEMPERATURA" class="input-small"  required>
 
     <label for="PRESSIONE">Pressione (hPa)</label>
-    <input type="number" step="0.001" id="PRESSIONE" name="PRESSIONE" class="input-small"  >
+    <input type="number" step="0.001" id="PRESSIONE" name="PRESSIONE" class="input-small"  required>
 
     <label for="UMIDITA">Umidit&agrave; (%)</label>
-    <input type="number" step="0.001" id="UMIDITA" name="UMIDITA" class="input-small"  >
+    <input type="number" step="0.001" id="UMIDITA" name="UMIDITA" class="input-small"  required>
 
     <label for="VENTO">Vento</label>
     <select id="VENTO" name="VENTO">
@@ -175,7 +175,7 @@
 
     <label>Misura Pozzetto a Vuoto</label>
     <label for="MEDIAVUOTO">Media delle misure</label>
-    <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO" class="input-small" style="background-color: yellow"  >
+    <input type="number" step="0.001" id="MEDIAVUOTO" name="MEDIAVUOTO" class="input-small" style="background-color: yellow"  required>
 
     <div class="flex-row">
       <input type="number" step="0.001" class="input-small" name="VUOTO1" oninput="calcolaMedia('VUOTO', 'MEDIAVUOTO')">
@@ -194,7 +194,7 @@
 
     <label>Misura dopo l'aspirazione 1a lettura filtro Bianco</label>
     <label for="BIANCOMEDIA1">Media delle misure</label>
-    <input type="number" step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1" class="input-small" style="background-color: yellow"  >
+    <input type="number" step="0.001" id="BIANCOMEDIA1" name="BIANCOMEDIA1" class="input-small" style="background-color: yellow"  required>
     <div class="flex-row">
       <input type="number" step="0.001" class="input-small" name="UNOBIANCO1" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
       <input type="number" step="0.001" class="input-small" name="UNOBIANCO2" oninput="calcolaMedia('UNOBIANCO', 'BIANCOMEDIA1')">
@@ -212,7 +212,7 @@
 
     <label>Misura 2h dopo l'aspirazione 2a lettura filtro Bianco</label>
     <label for="BIANCOMEDIA2">Media delle misure</label>
-    <input type="number" step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2" class="input-small" style="background-color: yellow"  >
+    <input type="number" step="0.001" id="BIANCOMEDIA2" name="BIANCOMEDIA2" class="input-small" style="background-color: yellow" required>
     <div class="flex-row">
       <input type="number" step="0.001" class="input-small" name="DUEBIANCO1" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
       <input type="number" step="0.001" class="input-small" name="DUEBIANCO2" oninput="calcolaMedia('DUEBIANCO', 'BIANCOMEDIA2')">
