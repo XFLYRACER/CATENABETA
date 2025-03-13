@@ -96,17 +96,59 @@
             max-width: 100%;
             height: auto;
         }
+
+   /* Aggiungi questo stile per il login */
+ 
+   .login-container {
+            position:relative;
+          top: 10px;
+         right: 10px;
+        background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            float: right;
+        }
+   
+        .login-input {
+            margin: 5px;
+            padding: 10px;
+            width: 150px;
+            float: right;
+            border-radius: 5px;
+        }
+        button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background-color: #cccccc;
+}
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="https://github.com/XFLYRACER/CATENABETA/blob/main/252px-Stemma_vvf_vda.jpg?raw=true" alt="Stemma Vigili del Fuoco" width="100">
+    <img src="https://github.com/XFLYRACER/CATENABETA/blob/main/252px-Stemma_vvf_vda.jpg?raw=true" alt="Stemma Vigili del Fuoco" width="200">
+    
+    
+    <div class="login-container">
+        
+        <input type="password" id="password" class="login-input" placeholder="Password">
+        <input type="text" id="username" class="login-input" placeholder="User ID">
+        <button onclick="login()">Accedi</button>
+               
+    </div>
+   
+    
     <h1>COMANDO REGIONALE VIGILI DEL FUOCO VALLE D'AOSTA</h1>
     <h2>CONTROLLO RADIOATTIVITA' AMBIENTALE</h2>
-    
+ 
+  <button id="insertButton" onclick="window.location.href='inserimento.html';" disabled>INSERISCI NUOVI DATI</button>
 
-    <button onclick="window.location.href='inserimento.html';">INSERISCI NUOVI DATI</button>
+    
 
     <div class="table-responsive">
         <table id="data-table" border="3" cellspacing="0" cellpadding="5">
@@ -132,25 +174,27 @@
         </table>
     </div>
 
-<h2>SITO IN MANUTENZIONE</h2>
+
 
 
 
     
     <canvas id="myChart"></canvas>
-    <p><strong>Created by BELLEY Ver 1.25.</strong></p>
+    <p><strong>Created by J.M. BELLEY Ver 2.01.</strong></p>
 </div>
 
 <script>
     let myChart = null; // Variabile per il grafico
     const sheetId = '1S6P0rMR6iOHFEXK-WU1S_h6FRsXK1izriBIJrB64UtA';
-    const apiKey = ''; // ⚠️ MEGLIO USARE UN PROXY!
+   // const apiKey = 'AIzaSyDwaK-e-eKYm1jprDq8EzEunjUa0PmWKtE'; // ⚠️ MEGLIO USARE UN PROXY!
 
     async function loadSheetData() {
         try {
             // Recupera i dati da Google Sheets
-            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/B2:O?key=${apiKey}`);
-            if (!response.ok) throw new Error("Errore nel recupero dei dati");
+           // const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/B2:O?key=${apiKey}`);
+           const response = await fetch('https://script.google.com/macros/s/AKfycbwHnBbzD1v0-F1V-8PeDoSFdG6afwosz74Vz3x-3k_0SanoziNFdy0qjX_jYtRBym1e/exec');
+                      
+           if (!response.ok) throw new Error("Errore nel recupero dei dati");
 
             const data = await response.json();
             const rows = data.values || [];
@@ -263,6 +307,44 @@
 
     // Carica i dati all'avvio della pagina
     loadSheetData();
+
+//////////////////////////////////////////////////////////////
+
+
+const LOGIN_SHEET_NAME = 'Login';
+
+
+async function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        // Recupera tutti i dati dal foglio Utenti
+        const response = await fetch(
+            `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${LOGIN_SHEET_NAME}!A2:B?key=${apiKey}`
+        );
+
+        if (!response.ok) throw new Error("Errore nel recupero delle credenziali");
+        
+        const data = await response.json();
+        const rows = data.values || [];
+        
+        // Cerca corrispondenza username/password
+        const isValid = rows.some(row => row[0] === username && row[1] === password);
+
+        if (isValid) {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            document.getElementById('insertButton').disabled = false;
+            alert(' ✅ Accesso riuscito!');
+        } else {
+            alert('⚠️ Credenziali errate!');
+        }
+    } catch (error) {
+        console.error('Errore login:', error);
+        alert(' ⚠️ Errore durante il login');
+    }
+}
+
 </script>
 
 </body>
