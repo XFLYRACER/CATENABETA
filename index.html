@@ -114,7 +114,7 @@
             margin: 5px;
             padding: 10px;
             width: 150px;
-            float: right;
+            //float: right;
             border-radius: 5px;
         }
         button:disabled {
@@ -131,14 +131,12 @@ button:disabled:hover {
 <body>
 
 <div class="container">
-    <img src="https://github.com/XFLYRACER/CATENABETA/blob/main/252px-Stemma_vvf_vda.jpg?raw=true" alt="Stemma Vigili del Fuoco" width="200">
+    <img src="https://github.com/XFLYRACER/CATENABETA/blob/main/252px-Stemma_vvf_vda.jpg?raw=true" alt="Stemma Vigili del Fuoco" width="100">
     
     
     <div class="login-container">
         
-        <input type="password" id="password" class="login-input" placeholder="Password">
-        <input type="text" id="username" class="login-input" placeholder="User ID">
-        <button onclick="login()">Accedi</button>
+        
                
     </div>
    
@@ -147,7 +145,9 @@ button:disabled:hover {
     <h2>CONTROLLO RADIOATTIVITA' AMBIENTALE</h2>
  
   <button id="insertButton" onclick="window.location.href='inserimento.html';" disabled>INSERISCI NUOVI DATI</button>
-
+<input type="password" id="password" class="login-input" placeholder="Password">
+        <input type="text" id="username" class="login-input" placeholder="User ID">
+        <button onclick="login()">Accedi</button>
     
 
     <div class="table-responsive">
@@ -155,7 +155,7 @@ button:disabled:hover {
             <thead>
                 <tr>
                     <th>OPERATORE</th>
-                    <th>DATA</th>
+                    <th>DATA DI PRELIEVO </th>
                     <th>LUOGO</th>
                     <th>ORA</th>
                     <th>POZZETTO VUOTO</th>
@@ -174,10 +174,6 @@ button:disabled:hover {
         </table>
     </div>
 
-
-
-
-
     
     <canvas id="myChart"></canvas>
     <p><strong>Created by J.M. BELLEY Ver 2.01.</strong></p>
@@ -185,58 +181,73 @@ button:disabled:hover {
 
 <script>
     let myChart = null; // Variabile per il grafico
-    const sheetId = '1S6P0rMR6iOHFEXK-WU1S_h6FRsXK1izriBIJrB64UtA';
-   // const apiKey = 'AIzaSyDwaK-e-eKYm1jprDq8EzEunjUa0PmWKtE'; // ⚠️ MEGLIO USARE UN PROXY!
+    
+  
+           async function loadSheetData() {
+    try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyzOi_8W3YwSgLYccSA1HRC0I10ykeDp0H1-tX91a3o5ew5ScY1OuSBoFRnVb0Yn7IW/exec");
 
-    async function loadSheetData() {
-        try {
-            // Recupera i dati da Google Sheets
-           // const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/B2:O?key=${apiKey}`);
-           const response = await fetch("https://script.google.com/macros/s/AKfycbylZFD2-tuFq6mkkutCRahvISS3iRmUuIyrcYHITI6YpNplGiIFI7fTfdK6Fwj3cA/exec");
-                      
-           if (!response.ok) throw new Error("Errore nel recupero dei dati");
+        // Verifica se la risposta è ok
+        if (!response.ok) {
+            throw new Error(`Errore nella risposta: ${response.status}`);
+        }
 
-            const data = await response.json();
-            const rows = data.values || [];
-            const tableBody = document.querySelector('#data-table tbody');
-            tableBody.innerHTML = "";
+        const json = await response.json();
+        
+        // Controlla se la risposta contiene i dati attesi
+        console.log("Dati ricevuti:", json);
+        
+        if (json.success !== true || !json.data) {
+            throw new Error("Dati non validi ricevuti");
+        }
 
-            // Prendi solo le ultime 10 righe
-            const last10Rows = rows.slice(-10);
+        const rows = json.data;
+        const last10Rows = rows.slice(-10);
 
-            const labels = [];
+        const labels = [];
             const dataFiltroBianco1a = [];
             const dataFiltroBianco2a = [];
             const dataFiltroNero = [];
 
-            last10Rows.forEach(row => {
-                // Assicurati che la riga abbia almeno 14 colonne
-                if (row.length >= 14) {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${row[0]}</td>
-                                    <td>${row[1]}</td>
-                                    <td>${row[2]}</td>
-                                    <td>${row[3]}</td>
-                                    <td>${row[4]}</td>
-                                    <td>${row[5]}</td>
-                                    <td>${row[6]}</td>
-                                    <td>${row[7]}</td>
-                                    <td>${row[8]}</td>
-                                    <td>${row[9]}</td>
-                                    <td>${row[10]}</td>
-                                    <td>${row[11]}</td>
-                                    <td>${row[12]}</td>
-                                    <td>${row[13]}</td>`;
-                    tableBody.appendChild(tr);
+        
+        // Stampa le ultime 10 righe
+        console.log("Ultime 10 righe:", last10Rows);
 
-                    // Utilizza la seconda colonna (DATA) come etichetta
-                    labels.push(row[1]);
+        // Aggiungi i dati alla tabella
+        const tableBody = document.querySelector('#data-table tbody');
+        tableBody.innerHTML = "";
+
+        last10Rows.forEach(row => {
+            if (row.length >= 14) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${row[1]}</td>
+                                <td>${row[2]}</td>
+                                <td>${row[3]}</td>
+                                <td>${row[4]}</td>
+                                <td>${row[5]}</td>
+                                <td>${row[6]}</td>
+                                <td>${row[7]}</td>
+                                <td>${row[8]}</td>
+                                <td>${row[9]}</td>
+                                <td>${row[10]}</td>
+                                <td>${row[11]}</td>
+                                <td>${row[12]}</td>
+                                <td>${row[13]}</td>
+                                <td>${row[14]}</td>`;
+                tableBody.appendChild(tr);
+                      // Utilizza la seconda colonna (DATA) come etichetta
+                      labels.push(row[1]);
                     // Dati per il grafico dai filtri specifici
-                    dataFiltroBianco1a.push(parseFloat(row[5]) || 0);
-                    dataFiltroBianco2a.push(parseFloat(row[6]) || 0);
-                    dataFiltroNero.push(parseFloat(row[7]) || 0);
-                }
-            });
+                    dataFiltroBianco1a.push(parseFloat(row[6]) || 0);
+                    dataFiltroBianco2a.push(parseFloat(row[7]) || 0);
+                    dataFiltroNero.push(parseFloat(row[8]) || 0);
+
+
+
+            }
+        });
+
+   
 
             // Crea il grafico con i dati raccolti
             createChart(labels, dataFiltroBianco1a, dataFiltroBianco2a, dataFiltroNero);
@@ -319,32 +330,32 @@ async function login() {
     const password = document.getElementById('password').value;
 
     try {
-        // Recupera tutti i dati dal foglio Utenti
-        const response = await fetch(
-            `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${LOGIN_SHEET_NAME}!A2:B?key=${apiKey}`
-        );
-
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwRcAkDdlPOH5TPI5XHnEECeLWKWJTcXVrwfvgTtC5QwN-C1FwgnX_NW0qFKAz1upNI/exec");
         if (!response.ok) throw new Error("Errore nel recupero delle credenziali");
+
+        const json = await response.json();
         
-        const data = await response.json();
-        const rows = data.values || [];
-        
-        // Cerca corrispondenza username/password
+        // Verifica la struttura dei dati
+        if (json.success !== true || !json.data) {
+            throw new Error("Dati non validi ricevuti");
+        }
+
+       const rows = json.data.slice(0); // Ignora l'header
+
         const isValid = rows.some(row => row[0] === username && row[1] === password);
 
         if (isValid) {
             sessionStorage.setItem('isLoggedIn', 'true');
             document.getElementById('insertButton').disabled = false;
-            alert(' ✅ Accesso riuscito!');
+            alert('✅ Accesso riuscito!');
         } else {
             alert('⚠️ Credenziali errate!');
         }
     } catch (error) {
         console.error('Errore login:', error);
-        alert(' ⚠️ Errore durante il login');
+        alert('⚠️ Errore durante il login');
     }
 }
-
 </script>
 
 </body>
