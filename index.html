@@ -249,8 +249,8 @@ button:disabled:hover {
                     dataFiltroBianco1a.push(parseFloat(row[6]) || 0);
                     dataFiltroBianco2a.push(parseFloat(row[7]) || 0);
                     dataFiltroNero.push(parseFloat(row[8]) || 0);
-                    dataTemperatura.push(parseFloat(row[9]) || 0);
-                     dataPressione.push(parseFloat(row[10]) || 0);
+                    dataTemperatura.push(parseFloat(row[10]) || 0);
+                     dataPressione.push(parseFloat(row[11]) || 0);
 
 
             }
@@ -311,7 +311,7 @@ button:disabled:hover {
                         borderColor: 'rgba(255, 159, 64, 1)',
                         borderWidth: 2,
                         fill: false,
-                        yAxisID: 'y1'
+                        yAxisID: 'y'
                     },
                     {
                         label: 'PRESSIONE (hPa)',
@@ -338,7 +338,7 @@ button:disabled:hover {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Valori Filtri'
+                            text: 'Valori Filtri CPS /Temperatura (°C)'
                         }
                     },
                     y1: {
@@ -347,7 +347,7 @@ button:disabled:hover {
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Temperatura (°C) / Pressione (hPa)'
+                            text: 'Pressione (hPa)'
                         },
                         grid: {
                             drawOnChartArea: false
