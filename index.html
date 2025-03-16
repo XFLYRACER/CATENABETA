@@ -215,7 +215,8 @@ button:disabled:hover {
             const dataFiltroBianco1a = [];
             const dataFiltroBianco2a = [];
             const dataFiltroNero = [];
-
+            const dataTemperatura = [];
+            const dataPressione = [];
         
         // Stampa le ultime 10 righe
         console.log("Ultime 10 righe:", last10Rows);
@@ -248,7 +249,8 @@ button:disabled:hover {
                     dataFiltroBianco1a.push(parseFloat(row[6]) || 0);
                     dataFiltroBianco2a.push(parseFloat(row[7]) || 0);
                     dataFiltroNero.push(parseFloat(row[8]) || 0);
-
+                    dataTemperatura.push(parseFloat(row[9]) || 0);
+                     dataPressione.push(parseFloat(row[10]) || 0);
 
 
             }
@@ -257,11 +259,11 @@ button:disabled:hover {
    
 
             // Crea il grafico con i dati raccolti
-            createChart(labels, dataFiltroBianco1a, dataFiltroBianco2a, dataFiltroNero);
-        } catch (error) {
-            console.error("Errore nel caricamento dei dati:", error);
-        }
+        createChart(labels, dataFiltroBianco1a, dataFiltroBianco2a, dataFiltroNero, dataTemperatura, dataPressione);
+    } catch (error) {
+        console.error("Errore nel caricamento dei dati:", error);
     }
+}
 
     function createChart(labels, dataFiltroBianco1a, dataFiltroBianco2a, dataFiltroNero) {
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -271,8 +273,8 @@ button:disabled:hover {
             myChart.destroy();
         }
 
-        myChart = new Chart(ctx, {
-            type: 'line', // Grafico a linee
+       myChart = new Chart(ctx, {
+            type: 'line',
             data: {
                 labels: labels,
                 datasets: [
@@ -282,7 +284,8 @@ button:disabled:hover {
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 2,
-                        fill: true
+                        fill: true,
+                        yAxisID: 'y'
                     },
                     {
                         label: 'FILTRO BIANCO 2a',
@@ -290,7 +293,8 @@ button:disabled:hover {
                         borderColor: 'rgba(255, 99, 132, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderWidth: 2,
-                        fill: true
+                        fill: true,
+                        yAxisID: 'y'
                     },
                     {
                         label: 'FILTRO NERO',
@@ -298,7 +302,24 @@ button:disabled:hover {
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderWidth: 2,
-                        fill: true
+                        fill: true,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'TEMPERATURA (°C)',
+                        data: dataTemperatura,
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                        yAxisID: 'y1'
+                    },
+                    {
+                        label: 'PRESSIONE (hPa)',
+                        data: dataPressione,
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                        yAxisID: 'y1'
                     }
                 ]
             },
@@ -312,16 +333,31 @@ button:disabled:hover {
                         }
                     },
                     y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
                         title: {
                             display: true,
-                            text: 'Valori Misurati CPS'
+                            text: 'Valori Filtri'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Temperatura (°C) / Pressione (hPa)'
                         },
-                        beginAtZero: true
+                        grid: {
+                            drawOnChartArea: false
+                        }
                     }
                 }
             }
         });
     }
+
 
     // Carica i dati all'avvio della pagina
     loadSheetData();
