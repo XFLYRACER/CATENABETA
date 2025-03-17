@@ -147,7 +147,7 @@
     <label for="VOLUME">Volume Aspirato (Mc)</label>
     <input type="number" step="0.001" id="VOLUME" name="VOLUME" value="4" class="input-small">
 
-    <label for="TEMPERATURA">Temperatura (°C)</label>
+    <label for="TEMPERATURA">Temperatura (Â°C)</label>
     <input type="number" step="0.001" id="TEMPERATURA" name="TEMPERATURA" class="input-small"  required>
 
     <label for="PRESSIONE">Pressione (hPa)</label>
@@ -281,7 +281,7 @@ function calcolaMedia(prefix, outputId) {
 document.getElementById('modulo').addEventListener('submit', async (e) => {
   e.preventDefault();
   
-  const url = 'https://script.google.com/macros/s/AKfycbyuoCiwET2Pfot8EE702Do5DAi8ZcyEtbOx81yHoyPMvP2qfZWXqC49VMNKeDFAAzQ/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbxPbXku_N7SHfMMR_E5LIUxc2H4e9KdZ6XT8GwOLAL5Xr6azdUiRz4RrT2mapOHPuIu/exec';
   const formData = new URLSearchParams(new FormData(e.target));
   
   // Converti i numeri nel formato con virgola
@@ -308,16 +308,16 @@ document.getElementById('modulo').addEventListener('submit', async (e) => {
     
 
     if (result.result === 'success' || result.message === 'Dati salvati correttamente') {
-  alert('✅ Dati inviati con successo! - Puoi tornare alla HOME');
+  alert('âœ… Dati inviati con successo! - Puoi tornare alla HOME');
   e.target.reset();
 } else {
-  alert(`⚠️ Errore: ${result.message || 'Errore sconosciuto'}`);
+  alert(`âš ï¸ Errore: ${result.message || 'Errore sconosciuto'}`);
 }
 
 
   } catch (error) {
     console.error('Errore completo:', error);
-    alert(`⚠️ Errore: ${error.message}`);
+    alert(`âš ï¸ Errore: ${error.message}`);
   }
 });
 
